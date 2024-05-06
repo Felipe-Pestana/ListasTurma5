@@ -65,5 +65,57 @@ namespace Listas
                 return false;
         }
 
+        public void RemoveByName(string name)
+        {
+            if(!isEmpty())
+            {
+                if (name == this.head.getName())
+                {
+                    if (head == tail)
+                        tail = head = null;
+                    else
+                    {
+                        head = head.getNext();
+                    }
+                }
+                else
+                {
+                    Contact aux = head;
+                    Contact prev = head;
+                    bool compare;
+                    do
+                    {
+                        compare = name.Equals(aux.getName());
+                        if (!compare)
+                        {
+                            prev = aux;
+                            aux = aux.getNext();
+                        }
+                        else
+                        {
+                            prev.setNext(aux.getNext());
+                            if (prev.getNext() == null)
+                                tail = prev;
+                        }
+
+                    } while (compare == false && aux != null);
+
+                    if(aux == null)
+                    {
+                        Console.WriteLine("Não existe o contato na lista.");
+                    }
+                }
+            }
+        }
+
+        public void ShowAll()
+        {
+            Contact aux = head;
+            do
+            {
+                Console.WriteLine(aux.ToString());
+                aux = aux.getNext();
+            } while (aux != null);
+        }
     }
 }
